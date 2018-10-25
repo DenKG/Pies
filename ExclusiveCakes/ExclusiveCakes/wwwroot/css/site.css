@@ -156,3 +156,14 @@ code {
 .bg-dark {
     background-color: #751233 !important;
 }
+
+/***
+    Order
+*/
+.order-con {
+    max-width: 960px;
+}
+
+.lh-condensed {
+    line-height: 1.25;
+}
