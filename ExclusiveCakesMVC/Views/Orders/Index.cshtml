@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ExclusiveCakesMVC.Models.Orders>
+
+<h2>Заказы</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<table class="table table-sm table-hover focus">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            Ф.И.О.
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Phone)*@
+            Телефон
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Weight)*@
+            Вес торта
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Forms.Form)*@
+            Форма
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.PieCatalogs.Pie)*@
+            Торт
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Note)*@
+            Комментарий
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.GettinTypes.GettingType)*@
+            Доставка
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Date)*@
+            Дата
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Statements.Status)*@
+            Статус
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Forms.Form)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PieCatalogs.Pie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GettinTypes.GettingType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td class="alert alert-warning">
+                @Html.DisplayFor(modelItem => item.Statements.Status)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>*@
+        </tr>
+    }
+
+</table>

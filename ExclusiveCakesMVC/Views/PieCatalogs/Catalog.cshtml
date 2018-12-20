@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ExclusiveCakesMVC.Models.PieCatalogs>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h4 class="my-md-3">Каталог продукции</h4>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <h6 class="my-md-3">Тематика</h6>
+
+                <div class="list-group">
+                    @{ int i1 = 0;
+                        foreach (var t in ViewBag.Themes)
+                        {
+                            ++i1;
+                            <button type="submit" class="btn btn-info list-group-item" name="searchString" style="color:black" id="group_@i1">@t.Theme</button>
+                        }
+                    }
+
+                </div>
+            }
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+            <div class="row">
+                @{ int i = 0;
+                    foreach (var item in Model)
+                    {
+                        ++i;
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="/PieCatalogs/Details/@item.ID" id="pie_@i">@Html.DisplayFor(modelItem => item.Pie)</a> @* Тайтл *@
+                                    </h4>
+                                    <h5>@Html.DisplayFor(modelItem => item.Price) сом.</h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                </div>
+                                <div class="card-footer">
+                                    @*<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>*@
+                                    <a href="#" class="ml-auto" id="basket_@i"><img src="https://png.icons8.com/ios/25/751233/add-shopping-cart-filled.png"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->

@@ -1,0 +1,866 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PieConstructorModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compositions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IngredientID" Type="int" />
+          <Property Name="OrderID" Type="int" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Event" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Form" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GettinTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GettingType" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ingredient" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PieID" Type="int" />
+          <Property Name="CompositionID" Type="int" />
+          <Property Name="Weight" Type="real" />
+          <Property Name="FormID" Type="int" />
+          <Property Name="Inscription" Type="varchar" MaxLength="50" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Note" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="GettingID" Type="int" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Sum" Type="money" />
+          <Property Name="StatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="PieCatalogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ThemeID" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="real" Nullable="false" />
+          <Property Name="Form" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Image" Type="image" />
+        </EntityType>
+        <EntityType Name="Statements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Theme" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Compositions_Ingredients">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="0..1" />
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Compositions">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Compositions">
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CompositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_GettinTypes">
+          <End Role="GettinTypes" Type="Self.GettinTypes" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GettinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="GettingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_PieCatalogs">
+          <End Role="PieCatalogs" Type="Self.PieCatalogs" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PieCatalogs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Statements">
+          <End Role="Statements" Type="Self.Statements" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statements">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PieCatalogs_Themes">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="1" />
+          <End Role="PieCatalogs" Type="Self.PieCatalogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PieCatalogs">
+              <PropertyRef Name="ThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branchName" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddGettinTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gettingType" Type="varchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="AddIngredient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ingredName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddPie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pieName" Type="varchar" Mode="In" />
+          <Parameter Name="theme" Type="int" Mode="In" />
+          <Parameter Name="weight" Type="real" Mode="In" />
+          <Parameter Name="form" Type="int" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="AddStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AddTheme" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="themeName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CreateForm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CreateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pieId" Type="int" Mode="In" />
+          <Parameter Name="compositionId" Type="int" Mode="In" />
+          <Parameter Name="weight" Type="real" Mode="In" />
+          <Parameter Name="form" Type="int" Mode="In" />
+          <Parameter Name="inscription" Type="varchar" Mode="In" />
+          <Parameter Name="image" Type="image" Mode="In" />
+          <Parameter Name="note" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="getting" Type="int" Mode="In" />
+          <Parameter Name="branch" Type="int" Mode="In" />
+          <Parameter Name="name" Type="int" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="sum" Type="money" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branchId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eventId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteForm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteGettinTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteIngredient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ingredName" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeletePie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteTheme" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="themeName" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditBranch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branchId" Type="int" Mode="In" />
+          <Parameter Name="branchName" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EditEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="eventId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditForm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="formId" Type="int" Mode="In" />
+          <Parameter Name="formName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="EditGettinTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gettingType" Type="varchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditIngredient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ingredName" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditPie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pieName" Type="varchar" Mode="In" />
+          <Parameter Name="theme" Type="int" Mode="In" />
+          <Parameter Name="weight" Type="real" Mode="In" />
+          <Parameter Name="form" Type="int" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="status" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EditTheme" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="themeName" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище PieConstructorModelContainer">
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compositions" EntityType="Self.Compositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GettinTypes" EntityType="Self.GettinTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PieCatalogs" EntityType="Self.PieCatalogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statements" EntityType="Self.Statements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Compositions_Ingredients" Association="Self.FK_Compositions_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="Compositions" EntitySet="Compositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Branches" Association="Self.FK_Orders_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Compositions" Association="Self.FK_Orders_Compositions">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Forms" Association="Self.FK_Orders_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_GettinTypes" Association="Self.FK_Orders_GettinTypes">
+            <End Role="GettinTypes" EntitySet="GettinTypes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_PieCatalogs" Association="Self.FK_Orders_PieCatalogs">
+            <End Role="PieCatalogs" EntitySet="PieCatalogs" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Statements" Association="Self.FK_Orders_Statements">
+            <End Role="Statements" EntitySet="Statements" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PieCatalogs_Themes" Association="Self.FK_PieCatalogs_Themes">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="PieCatalogs" EntitySet="PieCatalogs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PieConstructorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Branches" FromRole="Branches" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Compositions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IngredientID" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <NavigationProperty Name="Ingredients" Relationship="Self.FK_Compositions_Ingredients" FromRole="Compositions" ToRole="Ingredients" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Compositions" FromRole="Compositions" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Form" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Forms" FromRole="Forms" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="GettinTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GettingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_GettinTypes" FromRole="GettinTypes" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ingredient" Type="Int32" />
+          <NavigationProperty Name="Compositions" Relationship="Self.FK_Compositions_Ingredients" FromRole="Ingredients" ToRole="Compositions" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PieID" Type="Int32" />
+          <Property Name="CompositionID" Type="Int32" />
+          <Property Name="Weight" Type="Single" />
+          <Property Name="FormID" Type="Int32" />
+          <Property Name="Inscription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="GettingID" Type="Int32" />
+          <Property Name="BranchID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sum" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK_Orders_Branches" FromRole="Orders" ToRole="Branches" />
+          <NavigationProperty Name="Compositions" Relationship="Self.FK_Orders_Compositions" FromRole="Orders" ToRole="Compositions" />
+          <NavigationProperty Name="Forms" Relationship="Self.FK_Orders_Forms" FromRole="Orders" ToRole="Forms" />
+          <NavigationProperty Name="GettinTypes" Relationship="Self.FK_Orders_GettinTypes" FromRole="Orders" ToRole="GettinTypes" />
+          <NavigationProperty Name="PieCatalogs" Relationship="Self.FK_Orders_PieCatalogs" FromRole="Orders" ToRole="PieCatalogs" />
+          <NavigationProperty Name="Statements" Relationship="Self.FK_Orders_Statements" FromRole="Orders" ToRole="Statements" />
+        </EntityType>
+        <EntityType Name="PieCatalogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ThemeID" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Single" Nullable="false" />
+          <Property Name="Form" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_PieCatalogs" FromRole="PieCatalogs" ToRole="Orders" />
+          <NavigationProperty Name="Themes" Relationship="Self.FK_PieCatalogs_Themes" FromRole="PieCatalogs" ToRole="Themes" />
+        </EntityType>
+        <EntityType Name="Statements">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Statements" FromRole="Statements" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PieCatalogs" Relationship="Self.FK_PieCatalogs_Themes" FromRole="Themes" ToRole="PieCatalogs" />
+        </EntityType>
+        <Association Name="FK_Orders_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compositions_Ingredients">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="0..1" />
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Compositions">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Compositions">
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CompositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_GettinTypes">
+          <End Role="GettinTypes" Type="Self.GettinTypes" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GettinTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="GettingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_PieCatalogs">
+          <End Role="PieCatalogs" Type="Self.PieCatalogs" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PieCatalogs">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Statements">
+          <End Role="Statements" Type="Self.Statements" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statements">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PieCatalogs_Themes">
+          <End Role="Themes" Type="Self.Themes" Multiplicity="1" />
+          <End Role="PieCatalogs" Type="Self.PieCatalogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PieCatalogs">
+              <PropertyRef Name="ThemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PieConstructorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Self.Branches" />
+          <EntitySet Name="Compositions" EntityType="Self.Compositions" />
+          <EntitySet Name="Events" EntityType="Self.Events" />
+          <EntitySet Name="Forms" EntityType="Self.Forms" />
+          <EntitySet Name="GettinTypes" EntityType="Self.GettinTypes" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="PieCatalogs" EntityType="Self.PieCatalogs" />
+          <EntitySet Name="Statements" EntityType="Self.Statements" />
+          <EntitySet Name="Themes" EntityType="Self.Themes" />
+          <AssociationSet Name="FK_Orders_Branches" Association="Self.FK_Orders_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compositions_Ingredients" Association="Self.FK_Compositions_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="Compositions" EntitySet="Compositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Compositions" Association="Self.FK_Orders_Compositions">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Forms" Association="Self.FK_Orders_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_GettinTypes" Association="Self.FK_Orders_GettinTypes">
+            <End Role="GettinTypes" EntitySet="GettinTypes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_PieCatalogs" Association="Self.FK_Orders_PieCatalogs">
+            <End Role="PieCatalogs" EntitySet="PieCatalogs" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Statements" Association="Self.FK_Orders_Statements">
+            <End Role="Statements" EntitySet="Statements" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PieCatalogs_Themes" Association="Self.FK_PieCatalogs_Themes">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="PieCatalogs" EntitySet="PieCatalogs" />
+          </AssociationSet>
+          <FunctionImport Name="AddBranch">
+            <Parameter Name="branchName" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddEvent">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddGettinTypes">
+            <Parameter Name="gettingType" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AddIngredient">
+            <Parameter Name="ingredName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddPie">
+            <Parameter Name="pieName" Mode="In" Type="String" />
+            <Parameter Name="theme" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Single" />
+            <Parameter Name="form" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AddStatus">
+            <Parameter Name="status" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddTheme">
+            <Parameter Name="themeName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateForm">
+            <Parameter Name="formName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateOrder">
+            <Parameter Name="pieId" Mode="In" Type="Int32" />
+            <Parameter Name="compositionId" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Single" />
+            <Parameter Name="form" Mode="In" Type="Int32" />
+            <Parameter Name="inscription" Mode="In" Type="String" />
+            <Parameter Name="image" Mode="In" Type="Binary" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="getting" Mode="In" Type="Int32" />
+            <Parameter Name="branch" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="Int32" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="sum" Mode="In" Type="Decimal" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteBranch">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteEvent">
+            <Parameter Name="eventId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteForm">
+            <Parameter Name="formId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteGettinTypes">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteIngredient">
+            <Parameter Name="ingredName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePie">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteStatus">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteTheme">
+            <Parameter Name="themeName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditBranch">
+            <Parameter Name="branchId" Mode="In" Type="Int32" />
+            <Parameter Name="branchName" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditEvent">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="eventId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditForm">
+            <Parameter Name="formId" Mode="In" Type="Int32" />
+            <Parameter Name="formName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EditGettinTypes">
+            <Parameter Name="gettingType" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditIngredient">
+            <Parameter Name="ingredName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditPie">
+            <Parameter Name="pieName" Mode="In" Type="String" />
+            <Parameter Name="theme" Mode="In" Type="Int32" />
+            <Parameter Name="weight" Mode="In" Type="Single" />
+            <Parameter Name="form" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditStatus">
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EditTheme">
+            <Parameter Name="themeName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PieConstructorModelContainer" CdmEntityContainer="PieConstructorEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="PieConstructorModel.Branches">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compositions">
+            <EntityTypeMapping TypeName="PieConstructorModel.Compositions">
+              <MappingFragment StoreEntitySet="Compositions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="PieConstructorModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="PieConstructorModel.Forms">
+              <MappingFragment StoreEntitySet="Forms">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Form" ColumnName="Form" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GettinTypes">
+            <EntityTypeMapping TypeName="PieConstructorModel.GettinTypes">
+              <MappingFragment StoreEntitySet="GettinTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GettingType" ColumnName="GettingType" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredients">
+            <EntityTypeMapping TypeName="PieConstructorModel.Ingredients">
+              <MappingFragment StoreEntitySet="Ingredients">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ingredient" ColumnName="Ingredient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PieConstructorModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PieID" ColumnName="PieID" />
+                <ScalarProperty Name="CompositionID" ColumnName="CompositionID" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="Inscription" ColumnName="Inscription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="GettingID" ColumnName="GettingID" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PieCatalogs">
+            <EntityTypeMapping TypeName="PieConstructorModel.PieCatalogs">
+              <MappingFragment StoreEntitySet="PieCatalogs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Pie" ColumnName="Pie" />
+                <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Form" ColumnName="Form" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statements">
+            <EntityTypeMapping TypeName="PieConstructorModel.Statements">
+              <MappingFragment StoreEntitySet="Statements">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="PieConstructorModel.Themes">
+              <MappingFragment StoreEntitySet="Themes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Theme" ColumnName="Theme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddBranch" FunctionName="Хранилище PieConstructorModel.AddBranch" />
+          <FunctionImportMapping FunctionImportName="AddEvent" FunctionName="Хранилище PieConstructorModel.AddEvent" />
+          <FunctionImportMapping FunctionImportName="AddGettinTypes" FunctionName="Хранилище PieConstructorModel.AddGettinTypes" />
+          <FunctionImportMapping FunctionImportName="AddIngredient" FunctionName="Хранилище PieConstructorModel.AddIngredient" />
+          <FunctionImportMapping FunctionImportName="AddPie" FunctionName="Хранилище PieConstructorModel.AddPie" />
+          <FunctionImportMapping FunctionImportName="AddStatus" FunctionName="Хранилище PieConstructorModel.AddStatus" />
+          <FunctionImportMapping FunctionImportName="AddTheme" FunctionName="Хранилище PieConstructorModel.AddTheme" />
+          <FunctionImportMapping FunctionImportName="CreateForm" FunctionName="Хранилище PieConstructorModel.CreateForm" />
+          <FunctionImportMapping FunctionImportName="CreateOrder" FunctionName="Хранилище PieConstructorModel.CreateOrder" />
+          <FunctionImportMapping FunctionImportName="DeleteBranch" FunctionName="Хранилище PieConstructorModel.DeleteBranch" />
+          <FunctionImportMapping FunctionImportName="DeleteEvent" FunctionName="Хранилище PieConstructorModel.DeleteEvent" />
+          <FunctionImportMapping FunctionImportName="DeleteForm" FunctionName="Хранилище PieConstructorModel.DeleteForm" />
+          <FunctionImportMapping FunctionImportName="DeleteGettinTypes" FunctionName="Хранилище PieConstructorModel.DeleteGettinTypes" />
+          <FunctionImportMapping FunctionImportName="DeleteIngredient" FunctionName="Хранилище PieConstructorModel.DeleteIngredient" />
+          <FunctionImportMapping FunctionImportName="DeletePie" FunctionName="Хранилище PieConstructorModel.DeletePie" />
+          <FunctionImportMapping FunctionImportName="DeleteStatus" FunctionName="Хранилище PieConstructorModel.DeleteStatus" />
+          <FunctionImportMapping FunctionImportName="DeleteTheme" FunctionName="Хранилище PieConstructorModel.DeleteTheme" />
+          <FunctionImportMapping FunctionImportName="EditBranch" FunctionName="Хранилище PieConstructorModel.EditBranch" />
+          <FunctionImportMapping FunctionImportName="EditEvent" FunctionName="Хранилище PieConstructorModel.EditEvent" />
+          <FunctionImportMapping FunctionImportName="EditForm" FunctionName="Хранилище PieConstructorModel.EditForm" />
+          <FunctionImportMapping FunctionImportName="EditGettinTypes" FunctionName="Хранилище PieConstructorModel.EditGettinTypes" />
+          <FunctionImportMapping FunctionImportName="EditIngredient" FunctionName="Хранилище PieConstructorModel.EditIngredient" />
+          <FunctionImportMapping FunctionImportName="EditPie" FunctionName="Хранилище PieConstructorModel.EditPie" />
+          <FunctionImportMapping FunctionImportName="EditStatus" FunctionName="Хранилище PieConstructorModel.EditStatus" />
+          <FunctionImportMapping FunctionImportName="EditTheme" FunctionName="Хранилище PieConstructorModel.EditTheme" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

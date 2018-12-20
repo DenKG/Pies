@@ -1,0 +1,51 @@
+﻿@model ExclusiveCakesMVC.Models.PieCatalogs
+
+<div>
+    <h4>Торт "@Html.DisplayFor(model => model.Pie)"</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Weight)*@
+            Вес
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            Форма
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Form)
+        </dd>
+
+        <dt>
+            Стоимость
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price) сом.
+        </dd>
+
+        <dt>
+            Фото
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            Тема
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Themes.Theme)
+        </dd>
+
+    </dl>
+</div>
+<a href="/PieCatalogs/Catalog" class="btn anim_button btn-info" id="back" name="back">Вернуться</a>

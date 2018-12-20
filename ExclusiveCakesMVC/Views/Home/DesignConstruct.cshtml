@@ -1,0 +1,111 @@
+﻿@model ExclusiveCakesMVC.Models.Orders
+
+@{
+    ViewData["Title"] = "Design";
+}
+
+<h2>Заказ изделия</h2>
+
+<!-- Page Content -->
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-3">
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Вид мероприятия</h5>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col col-md-auto my-1">
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    @foreach (var p in ViewBag.Themes)
+                                    {
+                                        <option>@p.Theme</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Форма и вес</h5>
+                    <div class="card-body">
+
+                        <div class="col col-md-auto my-1">
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                @foreach (var p in ViewBag.Forms)
+                                {
+                                    <option>@p.Form</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-auto my-1">
+                            <input 
+                                   type="text" 
+                                   class="form-control" 
+                                   id="Weight validationCustom01" 
+                                   name="Weight"
+                                   placeholder="Вес (гр.)" 
+                                   required>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-9">
+                <br>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://placehold.it/750x300" alt="Card image cap">
+                    <div class="card-body">
+
+                        <button class="btn btn-primary"
+                                data-toggle="popover"
+                                data-placement="top"
+                                title="Sorry :("
+                                data-content="Корзина в разработке!"
+                                type="button">
+                            В корзину &rarr;
+                        </button>
+
+                        <a href="/Home/Order" type="submit" value="Create" class="btn btn-primary" role="button">Заказать &rarr;</a>
+
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFileLang" lang="ru">
+                            <label class="custom-file-label" for="customFileLang">Прикрепить образец</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+}

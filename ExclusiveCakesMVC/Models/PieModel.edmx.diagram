@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a6c04d140a24a65990e8f6006344e78" Name="Diagram1">
+        <EntityTypeShape EntityType="PieConstructorModel.Branches" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Compositions" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Events" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Forms" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.GettinTypes" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Ingredients" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Orders" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.PieCatalogs" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Statements" Width="1.5" PointX="3" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PieConstructorModel.Themes" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Compositions_Ingredients" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_Compositions" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_Forms" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_GettinTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_PieCatalogs" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_Orders_Statements" ManuallyRouted="false" />
+        <AssociationConnector Association="PieConstructorModel.FK_PieCatalogs_Themes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

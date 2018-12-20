@@ -1,0 +1,180 @@
+﻿@model ExclusiveCakesMVC.Models.Orders
+
+<div class="cake-order">
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <h2>Заказ изделия</h2>
+        <h4>Заполните все поля и прикрепите образец дизайна желаемого торта</h4>
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-3">
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Вид мероприятия</h5>
+                        <div class="card-body">
+
+                            <div class="col col-md-auto my-1">
+                                @*<select class="form-control" id="exampleFormControlSelect1">
+                                        @foreach (var p in ViewBag.Themes) // Добавить в контроллер
+                                            {
+                                                <option>@p.Theme</option>
+                                            }
+                                    </select>*@
+                                @Html.DropDownList("Themes", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Форма и вес</h5>
+                        <div class="card-body">
+
+                            <!-- Форма торта -->
+                            <div class="col col-md-auto my-1">
+                                @Html.DropDownList("FormID", null, htmlAttributes: new { @class = "form-control", @id = "cake_shape" })
+                                @Html.ValidationMessageFor(model => model.FormID, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Вес торта -->
+                            <div class="col-auto my-1">
+                                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control", @placeholder = "Вес торта", @id = "cake_wight" } })
+                                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger", @required = true })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Контактные данные</h5>
+                        <div class="card-body">
+
+                            <!-- ФИО заказчика -->
+                            <div class="col col-md-auto my-1">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ф.И.О.", @id = "cust_name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                            <!-- Телефон заказчика -->
+                            <div class="col-auto my-1">
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Телефон", @id = "cast_phone" } })
+                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Способ доставки</h5>
+                        <div class="card-body">
+
+                            <!-- Способ доставки -->
+                            <div class="col col-md-auto my-1">
+                                @Html.DropDownList("GettingID", null, htmlAttributes: new { @class = "form-control", @id = "delivery" })
+                                @Html.ValidationMessageFor(model => model.GettingID, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Blog Entries Column -->
+                <div class="col-md-9">
+                    <br>
+
+                    <!-- Blog Post -->
+                    <div class="card mb-4">
+                        <img class="card-img-top" id="Image" src="https://placehold.it/750x300" alt="Card image cap">
+
+                        <!-- !!! Изображение !!! -->
+                        <div class="card-footer text-muted">
+                            <div class="custom-file">
+                                @*
+                                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })*@
+                                <input type="file" onchange="readURL(this);" class="custom-file-input" id="Image" name="" lang="ru">
+                                <label class="custom-file-label" for="customFileLang">Прикрепить образец</label>
+                                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <!-- Комментарий к заказу -->
+                        <div class="card-body ">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Комментарий к заказу</span>
+                                </div>
+                                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", @id = "comment" } })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <!-- Кнопка помещения в корзину -->
+                            <a href="#" class="btn btn-primary ml-1 col-lg-2" id="basket">
+                                В корзину <img src="https://img.icons8.com/ios/20/ffffff/add-shopping-cart-filled.png">
+                            </a>
+
+                            <!-- Кнопка заказа -->
+                            <input type="submit" value="Заказать &rarr;" class="btn btn-primary mr-1 col-lg-2" id="submit" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+    }
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#Image')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    @*<style>
+            img {
+                max-width: 180px;
+            }
+
+            input[type=file] {
+                padding: 10px;
+                background: #2d2d2d;
+            }
+        </style>*@
+
+</div>
+
+
+
